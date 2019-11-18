@@ -5,3 +5,5 @@
 3. After finishing the review, allow and merge to the master branch
 
 # Coding Style Guideline
+
+https://www.python.org/dev/peps/pep-0008/
