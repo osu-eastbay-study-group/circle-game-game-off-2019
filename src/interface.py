@@ -57,6 +57,9 @@ while not crashed:
             if event.key == pygame.K_UP:
                 r_change = 5   # move away from origin
                 print("↑")
+            if event.key == pygame.K_SPACE:  # reset dot
+                r_change = theta_change = 0
+
 
     # Update the pixel coordinates of the image
     r += r_change
