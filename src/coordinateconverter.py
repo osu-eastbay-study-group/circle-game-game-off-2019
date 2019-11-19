@@ -1,3 +1,6 @@
+import math
+
+
 class CoordinateConverter:
     """
     Class to do coordinate conversions for a given PyGame window.
@@ -64,9 +67,36 @@ class CoordinateConverter:
                 int(-cartesian_pair[1]
                     + (self._max_y_pixel + self._min_y_pixel) / 2)]
 
+    def polar_to_cartesian(self, polar_pair, degrees=True):
+        """
+        Convert a point expressed in polar coordinates (r, theta) into
+        Cartesian coordinates (x, y) with
+          - x = rcos(theta)
+          - y = rsin(theta)
+
+        Parameters
+        ----------
+        polar_pair : list
+            Size 2 list with element 1 as the radius r and element 2 as angle
+            theta.
+        degrees : bool
+            True if theta is expressed in degrees. False if expressed in
+            radians.
+
+        Returns
+        -------
+        list
+            Size 2 list of the Cartesian coordinates.
+        """
+        # Convert to radians if not degrees
+        theta = polar_pair[1] * math.pi / 180 if degrees else polar_pair[1]
+        return [polar_pair[0] * math.cos(theta),
+                polar_pair[0] * math.sin(theta)]
+
 
 if __name__ == '__main__':
     cc = CoordinateConverter(800, 600)
+    # -------------------------------------------------------------------------
     cartesian_points = (
         (0, 0),     # Origin
         (-400, 0),  # Most negative x value
@@ -76,3 +106,49 @@ if __name__ == '__main__':
     )
     for cartesian_point in cartesian_points:
         print(cc.cartesian_to_pixel(cartesian_point))
+    # -------------------------------------------------------------------------
+    polar_points_degrees = (
+        (30, 0),
+        (30, 30),
+        (30, 45),
+        (30, 60),
+        (30, 90),
+        (30, 120),
+        (30, 135),
+        (30, 150),
+        (30, 180),
+        (30, 210),
+        (30, 225),
+        (30, 240),
+        (30, 270),
+        (30, 315),
+        (30, 330),
+        (30, 345),
+        (30, 360),
+    )
+    polar_points_radians = (
+        (30, 0),
+        (30, math.pi / 6),
+        (30, math.pi / 4),
+        (30, math.pi / 3),
+        (30, math.pi / 2),
+        (30, 2 * math.pi / 3),
+        (30, 3 * math.pi / 4),
+        (30, 5 * math.pi / 6),
+        (30, math.pi),
+        (30, 7 * math.pi / 6),
+        (30, 5 * math.pi / 4),
+        (30, 4 * math.pi / 3),
+        (30, 3 * math.pi / 2),
+        (30, 5 * math.pi / 3),
+        (30, 7 * math.pi / 8),
+        (30, 11 * math.pi / 6),
+        (30, 2 * math.pi),
+    )
+
+    for point in polar_points_degrees:
+        print(cc.polar_to_cartesian(point))
+
+    for point in polar_points_radians:
+        print(cc.polar_to_cartesian(point, False))
+    # -------------------------------------------------------------------------
