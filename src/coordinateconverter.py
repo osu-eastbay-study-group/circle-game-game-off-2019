@@ -23,7 +23,7 @@ class CoordinateConverter:
             The minimum pixel in the y direction. If representing the entire
             window this should be 0.
         """
-        self._window_x_max = max_x_pixel
-        self._window_y_max = max_y_pixel
-        self._window_x_min = min_x_pixel
-        self._window_y_min = min_y_pixel
+        self._max_x_pixel = max_x_pixel
+        self._max_y_pixel = max_y_pixel
+        self._min_x_pixel = min_x_pixel
+        self._min_y_pixel = min_y_pixel
