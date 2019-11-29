@@ -1,9 +1,14 @@
 import pygame
+import math
+import random
 from coordinateconverter import CoordinateConverter
 
 BLACK, WHITE, RED, \
 GREEN, BLUE, HOTPINK = (0, 0, 0), (255, 255, 255), (255, 0, 0), \
                        (0, 255, 0), (0, 0, 255), (255, 105, 180)
+
+def dist(x1, x2, y1, y2):
+    return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
 
 class CircleGame:
     def __init__(self):
@@ -31,6 +36,9 @@ class CircleGame:
         self.killer_theta, self.goal_theta = 0, 0
         self.converter = CoordinateConverter(self.display_width, self.display_height)
         self.exit = False
+        self.a1 = random.choice([200, 250, 150, 100])
+        self.a2 = random.choice([200, 250, 150, 100])
+        self.stop_play = 3
 
         while not self.exit:
             for event in self.pygame.event.get():
@@ -66,14 +74,37 @@ class CircleGame:
             self.killer_theta -= 10
             self.goal_theta += 10
             self.player_x, self.player_y = self.dots_pos(self.r, self.theta)
-            self.killer_x, self.killer_y = self.dots_pos(200, self.killer_theta)
-            self.goal_x, self.goal_y = self.dots_pos(150, self.goal_theta)
+            self.killer_x, self.killer_y = self.dots_pos(self.a1, self.killer_theta)
+            self.goal_x, self.goal_y = self.dots_pos(self.a2, self.goal_theta)
 
+            self.dist_pg = dist(self.player_x, self.goal_x, self.player_y, self.goal_y)
+            self.dist_pk = dist(self.player_x, self.killer_x, self.player_y, self.killer_y)
             self.screen_set()
 
-            self.display_dots(self.player_x, self.player_y, HOTPINK)
-            self.display_dots(self.killer_x, self.killer_y, RED)
-            self.display_dots(self.goal_x, self.goal_y, GREEN)
+            if self.dist_pg <= 20:
+                self.stop_play = 1
+
+            elif self.dist_pk <= 20:
+                if self.stop_play == 1 or self.stop_play == 4:
+                    self.stop_play = 4
+                else:
+                    self.stop_play = 2
+
+            if self.stop_play == 1:
+                self.display_dots(self.player_x, self.player_y, HOTPINK)
+                self.display_dots(self.killer_x, self.killer_y, RED)
+
+            elif self.stop_play == 2:
+                self.display_dots(self.killer_x, self.killer_y, RED)
+                self.display_dots(self.goal_x, self.goal_y, GREEN)
+
+            elif self.stop_play == 3:
+                self.display_dots(self.player_x, self.player_y, HOTPINK)
+                self.display_dots(self.killer_x, self.killer_y, RED)
+                self.display_dots(self.goal_x, self.goal_y, GREEN)
+
+            elif self.stop_play == 4:
+                self.display_dots(self.killer_x, self.killer_y, RED)
 
             self.pygame.display.flip()
             self.clock.tick(30)
