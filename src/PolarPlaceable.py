@@ -43,7 +43,27 @@ class PolarPlaceable():
     def get_color(self):
         return self._color
 
+    def increment_radius_index(self):
+        """
+        Increases radius index but not past the max index.
 
+        Returns
+        -------
+        None
+        """
+        if self._radius_index < len(self._radius_list) - 1:
+            self._radius_index += 1
+
+    def decrement_radius_index(self):
+        """
+        Decreases radius index but not past the max index.
+
+        Returns
+        -------
+        None
+        """
+        if self._radius_index > 0:
+            self._radius_index -= 1
 
 
 if __name__ == "__main__":
