@@ -72,18 +72,18 @@ class CoordinateConverter:
 
     def polar_to_cartesian(self, polar_pair, degrees=True):
         """
-        Convert a point expressed in polar coordinates (r, theta) into
+        Convert a point expressed in polar coordinates (radius, angle) into
         Cartesian coordinates (x, y) with
-          - x = rcos(theta)
-          - y = rsin(theta)
+          - x = rcos(angle)
+          - y = rsin(angle)
 
         Parameters
         ----------
         polar_pair : list
             Size 2 list with element 1 as the radius r and element 2 as angle
-            theta.
+            angle.
         degrees : bool
-            True if theta is expressed in degrees. False if expressed in
+            True if angle is expressed in degrees. False if expressed in
             radians.
 
         Returns
@@ -92,9 +92,9 @@ class CoordinateConverter:
             Size 2 list of the Cartesian coordinates.
         """
         # Convert to radians if not degrees
-        theta = polar_pair[1] * math.pi / 180 if degrees else polar_pair[1]
-        return [polar_pair[0] * math.cos(theta),
-                polar_pair[0] * math.sin(theta)]
+        angle = polar_pair[1] * math.pi / 180 if degrees else polar_pair[1]
+        return [polar_pair[0] * math.cos(angle),
+                polar_pair[0] * math.sin(angle)]
 
 
 if __name__ == '__main__':

@@ -4,9 +4,9 @@ from circlegame.polarutilities.polarutilities import PolarUtilities as pol_util
 class PolarPlaceable():
     """
     Class to represent objects in the PyGame window with position given
-    with a radius index and a angle (theta).
+    with a radius index and a angle.
     """
-    def __init__(self, radius_list, radius_level, theta, color):
+    def __init__(self, radius_list, radius_level, angle, color):
         """
 
         Parameters
@@ -16,14 +16,14 @@ class PolarPlaceable():
             Represents the concentric circles of the map.
         radius_level : int
             Index of the current radius the object is located at.
-        theta : float or int
-            Angle value in the polar coordinate (r, theta).
+        angle : float or int
+            Angle value in the polar coordinate (radius, angle).
         color : str
             Color of the circle to draw.
         """
         self._radius_list = radius_list
         self._radius_index = radius_level
-        self._theta = theta
+        self._angle = angle
         self._color = color
 
     def get_draw_data(self):
@@ -33,15 +33,15 @@ class PolarPlaceable():
         Returns
         -------
         Tuple of (int, float or int, str)
-            Index of the radius list, current theta value, and color string.
+            Index of the radius list, current angle, and color string.
         """
-        return (self._radius_index, self._theta, self._color)
+        return (self._radius_index, self._angle, self._color)
 
     def get_radius_index(self):
         return self._radius_index
 
-    def get_theta(self):
-        return self._theta
+    def get_angle(self):
+        return self._angle
 
     def get_color(self):
         return self._color
@@ -74,21 +74,21 @@ class PolarPlaceable():
             return True
         return False
 
-    def change_theta(self, del_theta):
+    def change_angle(self, angle_change):
         """
-        Adds del_theta to theta and normalizes afterwards.
+        Adds a value to the angle and then normalizes afterwards.
 
         Parameters
         ----------
-        del_theta : float or int
-            Amount to change theta by.
+        angle_change : float or int
+            Amount to change the current angle by.
 
         Returns
         -------
         None
         """
-        self._theta += del_theta
-        pol_util.normalize_angle(self._theta)
+        self._angle += angle_change
+        pol_util.normalize_angle(self._angle)
 
     def is_colliding_with(self, that):
         """
@@ -103,12 +103,12 @@ class PolarPlaceable():
         bool
             True if it collides with the argument, otherwise False.
         """
-        r_this = self._radius_list[self._radius_index]
-        r_that = self._radius_list[that._radius_index]
+        radius_this = self._radius_list[self._radius_index]
+        radius_that = self._radius_list[that._radius_index]
         dot_pixel_radius = 10
-        return (pol_util.get_distance(r_this, self._theta,
-                                      r_that, that.get_theta())
+        return (pol_util.get_distance(radius_this, self._angle,
+                                      radius_that, that.get_angle())
                 < 2 * dot_pixel_radius)
 
     def __repr__(self):
-        return f"{self._radius_index}, {self._theta}, {self._color}"
+        return f"{self._radius_index}, {self._angle}, {self._color}"
