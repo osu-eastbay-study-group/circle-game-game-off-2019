@@ -31,7 +31,6 @@ class Game:
         self.goals = self.setup_goals()
         self.killers = self.setup_killers()
         self.player = self.setup_player()
-        print(self.player)
 
     def setup_orbits(self):
         smaller_dimension = min(self.screen.get_width(), self.screen.get_height())
@@ -43,13 +42,13 @@ class Game:
         goal_count = len(self.radius_list)  # 1 goal per orbit
         # TODO: Set up points to be proportional to difficulty of orbit
         return [circlegame.characters.goal.Goal(self.radius_list,
-                                                self.radius_list[i],
+                                                i,
                                                 random.randint(0, 359)) for i in range(goal_count)]
 
     def setup_killers(self):
         killer_count = len(self.radius_list)  # 1 goal per orbit
         return [circlegame.characters.killer.Killer(self.radius_list,
-                                                    self.radius_list[i],
+                                                    i,
                                                     random.randint(0, 359)) for i in range(killer_count)]
 
     def setup_player(self):
