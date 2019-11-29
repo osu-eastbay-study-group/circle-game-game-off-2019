@@ -1,4 +1,4 @@
-from src.polarplaceable import PolarPlaceable
+from circlegame.polarplaceable import PolarPlaceable
 
 
 class Goal(PolarPlaceable):

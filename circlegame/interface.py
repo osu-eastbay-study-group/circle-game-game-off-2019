@@ -1,6 +1,5 @@
 import pygame
-import coordinateconverter
-from circle_game import CircleGame
+from circlegame.circle_game import CircleGame
 
 if __name__ == "__main__":
     pygame.init()
