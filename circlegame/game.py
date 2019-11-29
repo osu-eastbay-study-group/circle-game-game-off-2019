@@ -111,7 +111,7 @@ class Game:
             if killer.is_colliding_with(self.player):
                 self.player.die()
 
-    def screen_set(self):
+    def display_wallpaper(self):
         self.screen.blit(self.wallpaper_img, self.wallpaper_img.get_rect())
 
     def display_orbits(self):
