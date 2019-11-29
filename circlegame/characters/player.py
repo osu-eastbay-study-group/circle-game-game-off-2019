@@ -3,9 +3,9 @@ from circlegame.characters.polarplaceable import PolarPlaceable
 
 class Player(PolarPlaceable):
     """Class to represent the object that the player controls. Collects points during game."""
-    def __init__(self, radius_list, radius_level, angle):
+    def __init__(self, radius_list, radius_index, angle):
         """Create a player object with a HOTPINK color."""
-        super().__init__(radius_list, radius_level, angle, "HOTPINK")
+        super().__init__(radius_list, radius_index, angle, "HOTPINK")
         self._points_collected = 0
         self._moving_left = True
         self._alive = True

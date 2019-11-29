@@ -6,15 +6,15 @@ class PolarPlaceable():
     Class to represent objects in the PyGame window with position given
     with a radius index and a angle.
     """
-    def __init__(self, radius_list, radius_level, angle, color):
+    def __init__(self, radius_list, radius_index, angle, color):
         """
 
         Parameters
         ----------
         radius_list : list of float or int
-            List of permissible radius levels for the object to be located at.
+            List of permissible orbit radii for the object to be located at.
             Represents the concentric circles of the map.
-        radius_level : int
+        radius_index : int
             Index of the current radius the object is located at.
         angle : float or int
             Angle value in the polar coordinate (radius, angle).
@@ -22,7 +22,7 @@ class PolarPlaceable():
             Color of the circle to draw.
         """
         self._radius_list = radius_list
-        self._radius_index = radius_level
+        self._radius_index = radius_index
         self._angle = angle
         self._color = color
 
