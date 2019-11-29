@@ -27,7 +27,6 @@ class Game:
         self.wallpaper_img = pygame.image.load(wallpaper_path)
 
         self.radius_list = self.setup_orbits()
-        print(self.radius_list)
         self.goals = self.setup_goals()
         self.killers = self.setup_killers()
         self.player = self.setup_player()
@@ -66,8 +65,7 @@ class Game:
         while not self.game_over:
             self.listen_for_events()
 
-            self.move_killers()
-
+            self.move_characters()
 
             self.screen_set()      # make sure to be the first thing to display
             self.display_orbits()  # draw the orbits over the screens
@@ -84,22 +82,30 @@ class Game:
                 if event.key == pygame.K_LEFT:
                     pass
                 if event.key == pygame.K_RIGHT:
-                    pass
+                    self.player.move_right()
                 if event.key == pygame.K_DOWN:
                     pass
                 if event.key == pygame.K_UP:
                     pass
 
             if event.type == pygame.KEYUP:
-                if event.key in (pygame.K_LEFT, pygame.K_RIGHT):
-                    pass
-                if event.key in (pygame.K_DOWN, pygame.K_UP):
-                    pass
+                if event.key == pygame.K_LEFT:
+                    self.player.move_left()
+                if event.key == pygame.K_RIGHT:
+                    self.player.move_right()
+                if event.key == pygame.K_UP:
+                    self.player.increment_radius_index()
+                if event.key == pygame.K_DOWN:
+                    self.player.decrement_radius_index()
 
-
-    def move_killers(self):
+    def move_characters(self):
         for killer in self.killers:
             killer.change_theta(5)
+        if self.player.is_moving_left():
+            self.player.change_theta(5)
+        else:
+            self.player.change_theta(-5)
+
 
     def screen_set(self):
         self.screen.blit(self.wallpaper_img, self.wallpaper_img.get_rect())
@@ -112,7 +118,6 @@ class Game:
     def display_characters(self):
         for character in self.goals + self.killers + [self.player]:
             radius_index, theta, color_key = character.get_draw_data()
-            print(radius_index, theta, color_key)
             r = self.radius_list[radius_index]
             pygame.draw.circle(self.screen, colors[color_key],
                                self.converter.polar_to_pixel((r, theta)), 10)
