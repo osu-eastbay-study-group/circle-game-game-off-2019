@@ -92,7 +92,8 @@ class PolarPlaceable():
 
     def is_colliding_with(self, that):
         """
-        Checks if
+        Checks if the calling placeable occupies the same space as the
+        placeable in the parameter.
 
         Parameters
         ----------
