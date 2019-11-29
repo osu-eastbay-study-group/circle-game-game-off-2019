@@ -24,14 +24,14 @@ class Game:
         orbit_count = (smaller_dimension // 2) // orbit_spacing
         return [orbit_spacing * i for i in range(1, orbit_count)]
 
-    def screen_set(self):
-        self.screen.blit(self.wallpaper_img, self.wallpaper_img.get_rect())
-
     def start(self):
         while not self.game_over:
             self.listen_for_events()
+
+            self.screen_set()      # make sure to be the first thing to display
+            self.display_orbits()  # draw the orbits over the screens
+            # TODO: draw the circles over the orbits
             pygame.display.flip()
-            self.screen_set()
             self.clock.tick(30)
 
     def listen_for_events(self):
@@ -54,3 +54,11 @@ class Game:
                     pass
                 if event.key in (pygame.K_DOWN, pygame.K_UP):
                     pass
+
+    def screen_set(self):
+        self.screen.blit(self.wallpaper_img, self.wallpaper_img.get_rect())
+
+    def display_orbits(self):
+        for r in self.radius_list:
+            for theta in range(360):
+                pygame.draw.circle(self.screen, WHITE, self.converter.polar_to_pixel((r, theta)), 1)
