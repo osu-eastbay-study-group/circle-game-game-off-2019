@@ -1,3 +1,6 @@
+from circlegame.polarutilities.polarutilities import PolarUtilities as pol_util
+
+
 class PolarPlaceable():
     """
     Class to represent objects in the PyGame window with position given
@@ -71,8 +74,22 @@ class PolarPlaceable():
             return True
         return False
 
-if __name__ == "__main__":
-    radius_list = [50, 100, 150, 200, 250]
-    placeable = PolarPlaceable(radius_list, 1, 45, "HOTPINK")
-    print(placeable.get_draw_data())
-    print(placeable.get_radius_index(), placeable.get_theta(), placeable.get_color())
+    def is_colliding_with(self, that):
+        """
+        Checks if
+
+        Parameters
+        ----------
+        that : PolarPlaceable
+
+        Returns
+        -------
+        bool
+            True if it collides with the argument, otherwise False.
+        """
+        r_this = self._radius_list[self._radius_index]
+        r_that = self._radius_list[that._radius_index]
+        dot_pixel_radius = 10
+        return (pol_util.get_distance(r_this, self._theta,
+                                      r_that, that.get_theta())
+                < 2 * dot_pixel_radius)
