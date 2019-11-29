@@ -59,8 +59,7 @@ class Game:
 
     def start(self):
         while not self.game_over:
-            if self.player.is_alive():
-                self.listen_for_events()
+            self.listen_for_events()
 
             self.move_characters()
 
@@ -77,25 +76,16 @@ class Game:
             if event.type == pygame.QUIT:
                 self.game_over = True
 
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT:
-                    pass
-                if event.key == pygame.K_RIGHT:
-                    pass
-                if event.key == pygame.K_DOWN:
-                    pass
-                if event.key == pygame.K_UP:
-                    pass
-
-            if event.type == pygame.KEYUP:
-                if event.key == pygame.K_LEFT:
-                    self.player.move_left()
-                if event.key == pygame.K_RIGHT:
-                    self.player.move_right()
-                if event.key == pygame.K_UP:
-                    self.player.increment_radius_index()
-                if event.key == pygame.K_DOWN:
-                    self.player.decrement_radius_index()
+            if self.player.is_alive():
+                if event.type == pygame.KEYUP:
+                    if event.key == pygame.K_LEFT:
+                        self.player.move_left()
+                    if event.key == pygame.K_RIGHT:
+                        self.player.move_right()
+                    if event.key == pygame.K_UP:
+                        self.player.increment_radius_index()
+                    if event.key == pygame.K_DOWN:
+                        self.player.decrement_radius_index()
 
     def move_characters(self):
         for killer in self.killers:
