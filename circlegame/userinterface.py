@@ -1,9 +1,18 @@
 import pygame
-from circlegame.circle_game import CircleGame
+import circlegame.game
 
 if __name__ == "__main__":
+    display_width = 800
+    display_height = 600
+    title = 'Circle Game'
+    pygame.display.set_caption(title)
+
     pygame.init()
-    circle_game = CircleGame()
+    screen = pygame.display.set_mode((display_width, display_height))
     clock = pygame.time.Clock()
-    pygame, clock = circle_game.dots_move(pygame, clock)
+
+    circle_game = circlegame.game.Game(screen, clock)
+    print("START GAME")
+    circle_game.start()
     pygame.quit()
+    print("GAME OVER")
