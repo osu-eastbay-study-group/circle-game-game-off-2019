@@ -68,7 +68,7 @@ class Game:
 
             self.screen_set()      # make sure to be the first thing to display
             self.display_orbits()  # draw the orbits over the screens
-            # TODO: draw the circles over the orbits
+            self.display_characters()
             pygame.display.flip()
             self.clock.tick(30)
 
@@ -100,3 +100,11 @@ class Game:
         for r in self.radius_list:
             for theta in range(360):
                 pygame.draw.circle(self.screen, WHITE, self.converter.polar_to_pixel((r, theta)), 1)
+
+    def display_characters(self):
+        for character in self.goals + self.killers + [self.player]:
+            radius_index, theta, color_key = character.get_draw_data()
+            print(radius_index, theta, color_key)
+            r = self.radius_list[radius_index]
+            pygame.draw.circle(self.screen, colors[color_key],
+                               self.converter.polar_to_pixel((r, theta)), 10)
