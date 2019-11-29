@@ -74,6 +74,22 @@ class PolarPlaceable():
             return True
         return False
 
+    def change_theta(self, del_theta):
+        """
+        Adds del_theta to theta and normalizes afterwards.
+
+        Parameters
+        ----------
+        del_theta : float or int
+            Amount to change theta by.
+
+        Returns
+        -------
+        None
+        """
+        self._theta += del_theta
+        pol_util.normalize_angle(self._theta)
+
     def is_colliding_with(self, that):
         """
         Checks if
