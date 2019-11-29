@@ -66,6 +66,9 @@ class Game:
         while not self.game_over:
             self.listen_for_events()
 
+            self.move_killers()
+
+
             self.screen_set()      # make sure to be the first thing to display
             self.display_orbits()  # draw the orbits over the screens
             self.display_characters()
@@ -92,6 +95,11 @@ class Game:
                     pass
                 if event.key in (pygame.K_DOWN, pygame.K_UP):
                     pass
+
+
+    def move_killers(self):
+        for killer in self.killers:
+            killer.change_theta(5)
 
     def screen_set(self):
         self.screen.blit(self.wallpaper_img, self.wallpaper_img.get_rect())
