@@ -42,11 +42,11 @@ class CircleGame:
                         print("→")
 
                     if event.key == self.pygame.K_DOWN:
-                        self.r_change = -20  # move towards origin
+                        self.r_change = -10  # move towards origin
                         print("↓")
 
                     if event.key == self.pygame.K_UP:
-                        self.r_change = 20  # move away from origin
+                        self.r_change = 10  # move away from origin
                         print("↑")
 
                 if event.type == self.pygame.KEYUP:
