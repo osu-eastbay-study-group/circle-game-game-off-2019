@@ -1,10 +1,11 @@
+#!/usr/bin/env python
 import pygame
 import circlegame.game
 
 if __name__ == "__main__":
     # Initialization
-    display_width = 800
-    display_height = 600
+    display_width =  1080
+    display_height = 1080
     title = 'Circle Game'
     wallpaper_path = '../img/space_img.jpg'
 
