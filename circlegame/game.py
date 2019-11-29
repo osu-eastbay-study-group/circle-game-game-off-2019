@@ -75,7 +75,7 @@ class Game:
     def listen_for_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                game_over = True
+                self.game_over = True
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
