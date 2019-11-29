@@ -1,7 +1,7 @@
 import pygame
 import math
 import random
-from circlegame.coordinateconverter import CoordinateConverter
+from circlegame.polarutilities.coordinateconverter import CoordinateConverter
 
 BLACK, WHITE, RED, \
 GREEN, BLUE, HOTPINK = (0, 0, 0), (255, 255, 255), (255, 0, 0), \
