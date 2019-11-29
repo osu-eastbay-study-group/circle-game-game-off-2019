@@ -59,7 +59,8 @@ class Game:
 
     def start(self):
         while not self.game_over:
-            self.listen_for_events()
+            if self.player.is_alive():
+                self.listen_for_events()
 
             self.move_characters()
 
@@ -99,10 +100,11 @@ class Game:
     def move_characters(self):
         for killer in self.killers:
             killer.change_theta(5)
-        if self.player.is_moving_left():
-            self.player.change_theta(5)
-        else:
-            self.player.change_theta(-5)
+        if self.player.is_alive():
+            if self.player.is_moving_left():
+                self.player.change_theta(5)
+            else:
+                self.player.change_theta(-5)
 
     def check_interactions(self):
         for i, goal in enumerate(self.goals):
@@ -110,7 +112,9 @@ class Game:
                 self.player.pick_up_goal(goal)
                 del self.goals[i]
 
-
+        for killer in self.killers:
+            if killer.is_colliding_with(self.player):
+                self.player.die()
 
     def screen_set(self):
         self.screen.blit(self.wallpaper_img, self.wallpaper_img.get_rect())
@@ -121,9 +125,13 @@ class Game:
                 pygame.draw.circle(self.screen, colors['WHITE'], self.converter.polar_to_pixel((r, theta)), 1)
 
     def display_characters(self):
-        for character in self.goals + self.killers + [self.player]:
+        characters_to_move = self.goals + self.killers
+
+        if self.player.is_alive():
+            characters_to_move.append(self.player)
+
+        for character in characters_to_move:
             radius_index, theta, color_key = character.get_draw_data()
             r = self.radius_list[radius_index]
             pygame.draw.circle(self.screen, colors[color_key],
                                self.converter.polar_to_pixel((r, theta)), 10)
-
