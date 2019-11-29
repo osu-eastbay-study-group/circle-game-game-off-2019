@@ -8,12 +8,19 @@ class Player(PolarPlaceable):
         super().__init__(radius_list, radius_level, theta, "HOTPINK")
         self._points_collected = 0
         self._moving_left = False
+        self._alive = True
 
     def pick_up_goal(self, goal):
         self._points_collected += goal.get_points()
 
     def get_points_collected(self):
         return self._points_collected
+
+    def is_alive(self):
+        return self._alive
+
+    def die(self):
+        self._alive = False
 
     def is_moving_left(self):
         return self._moving_left
