@@ -35,7 +35,6 @@ class Game:
 
     def setup_goals(self):
         goal_count = len(self.radius_list)  # 1 goal per orbit
-        # TODO: Set up points to be proportional to difficulty of orbit
         return [circlegame.characters.goal.Goal(self.radius_list,
                                                 i,
                                                 random.randint(0, 359)) for i in range(goal_count)]
@@ -54,6 +53,9 @@ class Game:
 
         # Place on opposite side of killer as not to get killed immediately when spawned.
         theta = self.killers[radius_index].get_theta() - 180
+
+        # Have player and killer in initial orbit move the same direction.
+        self.killers[radius_index].move_left()
 
         return circlegame.characters.player.Player(self.radius_list, radius_index, theta)
 
@@ -89,7 +91,10 @@ class Game:
 
     def move_characters(self):
         for killer in self.killers:
-            killer.change_theta(5)
+            if killer.is_moving_left():
+                killer.change_theta(5)
+            else:
+                killer.change_theta(-5)
         if self.player.is_alive():
             if self.player.is_moving_left():
                 self.player.change_theta(5)
