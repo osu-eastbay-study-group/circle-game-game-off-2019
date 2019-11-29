@@ -69,7 +69,7 @@ class Game:
             self.display_orbits()  # draw the orbits over the screens
             self.display_characters()
             pygame.display.flip()
-            self.clock.tick(30)
+            self.clock.tick(10)
 
     def listen_for_events(self):
         for event in pygame.event.get():
