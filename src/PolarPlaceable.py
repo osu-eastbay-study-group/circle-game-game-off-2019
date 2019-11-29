@@ -49,10 +49,13 @@ class PolarPlaceable():
 
         Returns
         -------
-        None
+        bool
+            True if successfully increments. Otherwise False.
         """
         if self._radius_index < len(self._radius_list) - 1:
             self._radius_index += 1
+            return True
+        return False
 
     def decrement_radius_index(self):
         """
@@ -60,11 +63,13 @@ class PolarPlaceable():
 
         Returns
         -------
-        None
-        """
+        bool
+            True if successfully decrements. Otherwise False.
++        """
         if self._radius_index > 0:
             self._radius_index -= 1
-
+            return True
+        return False
 
 if __name__ == "__main__":
     radius_list = [50, 100, 150, 200, 250]
