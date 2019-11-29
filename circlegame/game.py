@@ -5,6 +5,13 @@ BLACK, WHITE, RED, \
 GREEN, BLUE, HOTPINK = (0, 0, 0), (255, 255, 255), (255, 0, 0), \
                        (0, 255, 0), (0, 0, 255), (255, 105, 180)
 
+colors = {"BLACK": (0, 0, 0),
+          "WHITE": (255, 255, 255),
+          "RED": (255, 0, 0),
+          "GREEN": (0, 255, 0),
+          "BLUE": (0, 0, 255),
+          "HOTPINK": (255, 105, 180)}
+
 
 class Game:
     def __init__(self, screen, clock, wallpaper_path):
