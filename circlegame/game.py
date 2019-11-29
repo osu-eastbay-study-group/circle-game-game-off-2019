@@ -67,6 +67,8 @@ class Game:
 
             self.move_characters()
 
+            self.check_interactions()
+
             self.screen_set()      # make sure to be the first thing to display
             self.display_orbits()  # draw the orbits over the screens
             self.display_characters()
@@ -82,7 +84,7 @@ class Game:
                 if event.key == pygame.K_LEFT:
                     pass
                 if event.key == pygame.K_RIGHT:
-                    self.player.move_right()
+                    pass
                 if event.key == pygame.K_DOWN:
                     pass
                 if event.key == pygame.K_UP:
@@ -106,6 +108,12 @@ class Game:
         else:
             self.player.change_theta(-5)
 
+    def check_interactions(self):
+        for i, goal in enumerate(self.goals):
+            if goal.is_colliding_with(self.player):
+                self.player.pick_up_goal(goal)
+                del self.goals[i]
+        print(self.player.get_points_collected())
 
     def screen_set(self):
         self.screen.blit(self.wallpaper_img, self.wallpaper_img.get_rect())
@@ -121,3 +129,4 @@ class Game:
             r = self.radius_list[radius_index]
             pygame.draw.circle(self.screen, colors[color_key],
                                self.converter.polar_to_pixel((r, theta)), 10)
+

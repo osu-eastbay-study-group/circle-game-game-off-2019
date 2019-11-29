@@ -9,6 +9,9 @@ class Player(PolarPlaceable):
         self._points_collected = 0
         self.moving_left = False
 
+    def pick_up_goal(self, goal):
+        self._points_collected += goal.get_points()
+
     def get_points_collected(self):
         return self._points_collected
 
