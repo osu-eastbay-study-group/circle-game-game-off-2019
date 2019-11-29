@@ -3,6 +3,7 @@ from circlegame.polarutilities.coordinateconverter import CoordinateConverter
 import random
 import circlegame.characters.goal
 import circlegame.characters.killer
+import circlegame.characters.player
 
 
 BLACK, WHITE, RED, \
@@ -29,7 +30,8 @@ class Game:
         print(self.radius_list)
         self.goals = self.setup_goals()
         self.killers = self.setup_killers()
-        # self.player = circlegame.characters.player.Player()
+        self.player = self.setup_player()
+        print(self.player)
 
     def setup_orbits(self):
         smaller_dimension = min(self.screen.get_width(), self.screen.get_height())
@@ -50,6 +52,16 @@ class Game:
                                                     self.radius_list[i],
                                                     random.randint(0, 359)) for i in range(killer_count)]
 
+    def setup_player(self):
+        """
+        Must be called after setup_killers() not before.
+        """
+        radius_index = len(self.radius_list) - 1
+
+        # Place on opposite side of killer as not to get killed immediately when spawned.
+        theta = self.killers[radius_index].get_theta() - 180
+
+        return circlegame.characters.player.Player(self.radius_list, radius_index, theta)
 
     def start(self):
         while not self.game_over:
