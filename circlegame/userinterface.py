@@ -2,17 +2,21 @@ import pygame
 import circlegame.game
 
 if __name__ == "__main__":
+    # Initialization
     display_width = 800
     display_height = 600
     title = 'Circle Game'
-    pygame.display.set_caption(title)
+    wallpaper_path = '../img/space_img.jpg'
 
+    # PyGame Setup
+    pygame.display.set_caption(title)
     pygame.init()
     screen = pygame.display.set_mode((display_width, display_height))
     clock = pygame.time.Clock()
+    game = circlegame.game.Game(screen, clock, wallpaper_path)
 
-    circle_game = circlegame.game.Game(screen, clock)
+    # Start the game
     print("START GAME")
-    circle_game.start()
+    game.start()
     pygame.quit()
     print("GAME OVER")

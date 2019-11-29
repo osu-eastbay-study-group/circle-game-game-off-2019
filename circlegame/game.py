@@ -7,16 +7,15 @@ GREEN, BLUE, HOTPINK = (0, 0, 0), (255, 255, 255), (255, 0, 0), \
 
 
 class Game:
-    def __init__(self, screen, clock):
+    def __init__(self, screen, clock, wallpaper_path):
         self.screen = screen
         self.clock = clock
-        self.converter = CoordinateConverter(screen.get_width,
-                                             screen.get_height)
+        self.converter = CoordinateConverter(screen.get_width, screen.get_height)
         self.game_over = False
+        self.wallpaper_img = pygame.image.load(wallpaper_path)
 
     def screen_set(self):
-        space_img = pygame.image.load('../img/space_img.jpg')
-        self.screen.blit(space_img, space_img.get_rect())
+        self.screen.blit(self.wallpaper_img, self.wallpaper_img.get_rect())
 
     def start(self):
         while not self.game_over:
