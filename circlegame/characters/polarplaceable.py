@@ -111,4 +111,4 @@ class PolarPlaceable():
                 < 2 * dot_pixel_radius)
 
     def __repr__(self):
-        return f"({self._radius_index}, {self._theta}, {self._color})"
+        return f"{self._radius_index}, {self._theta}, {self._color}"

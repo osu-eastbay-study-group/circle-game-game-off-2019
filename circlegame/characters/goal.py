@@ -12,3 +12,6 @@ class Goal(PolarPlaceable):
 
     def get_points(self):
         return self._points
+
+    def __repr__(self):
+        return f'{super().__repr__()}, {self._points}'
