@@ -10,9 +10,19 @@ class Game:
     def __init__(self, screen, clock, wallpaper_path):
         self.screen = screen
         self.clock = clock
-        self.converter = CoordinateConverter(screen.get_width, screen.get_height)
+        self.converter = CoordinateConverter(screen.get_width(), screen.get_height())
         self.game_over = False
         self.wallpaper_img = pygame.image.load(wallpaper_path)
+
+        self.radius_list = self.setup_circles()
+        print(self.radius_list)
+        #self.player = circlegame.characters.player.Player()
+
+    def setup_circles(self):
+        smaller_dimension = min(self.screen.get_width(), self.screen.get_height())
+        circle_spacing = 50  # number of pixels
+        number_of_circles = (smaller_dimension // 2) // circle_spacing
+        return [circle_spacing * i for i in range(1, number_of_circles)]
 
     def screen_set(self):
         self.screen.blit(self.wallpaper_img, self.wallpaper_img.get_rect())
