@@ -31,6 +31,9 @@ class CoordinateConverter:
         self._min_x_pixel = min_x_pixel
         self._min_y_pixel = min_y_pixel
 
+    def polar_to_pixel(self, polar_pair, degrees=True):
+        return self.cartesian_to_pixel(self.polar_to_cartesian(polar_pair, degrees))
+
     def cartesian_to_pixel(self, cartesian_pair):
         """
         Converts a given Cartesian ordered pair to corresponding pixel
