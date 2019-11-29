@@ -1,5 +1,8 @@
 import pygame
 from circlegame.polarutilities.coordinateconverter import CoordinateConverter
+import random
+import circlegame.characters.goal
+
 
 BLACK, WHITE, RED, \
 GREEN, BLUE, HOTPINK = (0, 0, 0), (255, 255, 255), (255, 0, 0), \
@@ -23,6 +26,7 @@ class Game:
 
         self.radius_list = self.setup_orbits()
         print(self.radius_list)
+        self.goals = self.setup_goals()
         # self.player = circlegame.characters.player.Player()
 
     def setup_orbits(self):
@@ -30,6 +34,13 @@ class Game:
         orbit_spacing = 50  # number of pixels
         orbit_count = (smaller_dimension // 2) // orbit_spacing
         return [orbit_spacing * i for i in range(1, orbit_count)]
+
+    def setup_goals(self):
+        goal_count = len(self.radius_list)  # 1 goal per orbit
+        return [circlegame.characters.goal.Goal(self.radius_list,
+                                                self.radius_list[i],
+                                                random.randint(0, 359)) for i in range(goal_count)]
+
 
     def start(self):
         while not self.game_over:
