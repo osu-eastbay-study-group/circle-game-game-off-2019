@@ -14,15 +14,15 @@ class Game:
         self.game_over = False
         self.wallpaper_img = pygame.image.load(wallpaper_path)
 
-        self.radius_list = self.setup_circles()
+        self.radius_list = self.setup_orbits()
         print(self.radius_list)
-        #self.player = circlegame.characters.player.Player()
+        # self.player = circlegame.characters.player.Player()
 
-    def setup_circles(self):
+    def setup_orbits(self):
         smaller_dimension = min(self.screen.get_width(), self.screen.get_height())
-        circle_spacing = 50  # number of pixels
-        number_of_circles = (smaller_dimension // 2) // circle_spacing
-        return [circle_spacing * i for i in range(1, number_of_circles)]
+        orbit_spacing = 50  # number of pixels
+        orbit_count = (smaller_dimension // 2) // orbit_spacing
+        return [orbit_spacing * i for i in range(1, orbit_count)]
 
     def screen_set(self):
         self.screen.blit(self.wallpaper_img, self.wallpaper_img.get_rect())
