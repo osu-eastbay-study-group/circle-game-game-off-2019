@@ -7,7 +7,7 @@ class Player(PolarPlaceable):
         """Create a player object with a HOTPINK color."""
         super().__init__(radius_list, radius_level, theta, "HOTPINK")
         self._points_collected = 0
-        self.moving_left = False
+        self._moving_left = False
 
     def pick_up_goal(self, goal):
         self._points_collected += goal.get_points()
@@ -16,10 +16,10 @@ class Player(PolarPlaceable):
         return self._points_collected
 
     def is_moving_left(self):
-        return self.moving_left
+        return self._moving_left
 
     def move_left(self):
-        self.moving_left = True
+        self._moving_left = True
 
     def move_right(self):
-        self.moving_left = False
+        self._moving_left = False

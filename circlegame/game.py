@@ -6,10 +6,6 @@ import circlegame.characters.killer
 import circlegame.characters.player
 
 
-BLACK, WHITE, RED, \
-GREEN, BLUE, HOTPINK = (0, 0, 0), (255, 255, 255), (255, 0, 0), \
-                       (0, 255, 0), (0, 0, 255), (255, 105, 180)
-
 colors = {"BLACK": (0, 0, 0),
           "WHITE": (255, 255, 255),
           "RED": (255, 0, 0),
@@ -113,7 +109,8 @@ class Game:
             if goal.is_colliding_with(self.player):
                 self.player.pick_up_goal(goal)
                 del self.goals[i]
-        print(self.player.get_points_collected())
+
+
 
     def screen_set(self):
         self.screen.blit(self.wallpaper_img, self.wallpaper_img.get_rect())
@@ -121,7 +118,7 @@ class Game:
     def display_orbits(self):
         for r in self.radius_list:
             for theta in range(360):
-                pygame.draw.circle(self.screen, WHITE, self.converter.polar_to_pixel((r, theta)), 1)
+                pygame.draw.circle(self.screen, colors['WHITE'], self.converter.polar_to_pixel((r, theta)), 1)
 
     def display_characters(self):
         for character in self.goals + self.killers + [self.player]:
