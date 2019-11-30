@@ -70,7 +70,8 @@ class Game:
 
             self.move_characters()
 
-            self.check_interactions()
+            if self.player.is_alive():
+                self.check_player_interactions()
 
             self.display_wallpaper()      # make sure to be the first thing to display
             self.display_score(self.text_set)
@@ -108,7 +109,7 @@ class Game:
             else:
                 self.player.change_angle(-5)
 
-    def check_interactions(self):
+    def check_player_interactions(self):
         for i, goal in enumerate(self.goals):
             if goal.is_colliding_with(self.player):
                 self.player.pick_up_goal(goal)
