@@ -11,14 +11,16 @@ colors = {"BLACK": (0, 0, 0),
           "RED": (255, 0, 0),
           "GREEN": (0, 255, 0),
           "BLUE": (0, 0, 255),
-          "HOTPINK": (255, 105, 180)}
+          "HOTPINK": (255, 105, 180),
+          "YELLOW": (255,255,204)}
 
+TEXT_SIZE = 30
 
 class Game:
     def __init__(self, screen, clock, wallpaper_path):
         self.screen = screen
         self.clock = clock
-        self.converter = CoordinateConverter(screen.get_width(), screen.get_height())
+        self.converter = CoordinateConverter(self.screen.get_width(), self.screen.get_height())
         self.game_over = False
         self.wallpaper_img = pygame.image.load(wallpaper_path)
 
@@ -60,6 +62,9 @@ class Game:
         return circlegame.characters.player.Player(self.radius_list, radius_index, initial_angle)
 
     def start(self):
+
+        self.text_set = pygame.font.Font(pygame.font.get_default_font(), TEXT_SIZE)
+
         while not self.game_over:
             self.listen_for_events()
 
@@ -68,6 +73,8 @@ class Game:
             self.check_interactions()
 
             self.display_wallpaper()      # make sure to be the first thing to display
+            self.display_score(self.text_set)
+            self.display_interactive_buttons()
             self.display_orbits()  # draw the orbits over the screens
             self.display_characters()
             pygame.display.flip()
@@ -113,6 +120,62 @@ class Game:
 
     def display_wallpaper(self):
         self.screen.blit(self.wallpaper_img, self.wallpaper_img.get_rect())
+
+    def display_score(self, text_set):
+        self.text_set = text_set
+        self.score_text = self.text_set.render("SCORE", True, colors["WHITE"])
+        self.screen.blit(self.score_text, (10, 10))
+        self.point_text = self.text_set.render(str(self.player.get_points_collected()), True, colors["WHITE"])
+        self.screen.blit(self.point_text, (50, 50))
+
+    def display_interactive_buttons(self):
+        # NEW board
+        pygame.draw.rect(self.screen, colors['BLACK'], (self.screen.get_width() - 206, 6, 186, 36))
+        self.new_game_text = self.text_set.render("NEW", True, colors["WHITE"])
+        self.screen.blit(self.new_game_text, (self.screen.get_width() - 150, 12))
+
+        # NEXT board
+        pygame.draw.rect(self.screen, colors['BLACK'], (self.screen.get_width() - 206, 48, 186, 36))
+        self.new_game_text = self.text_set.render("NEXT", True, colors["WHITE"])
+        self.screen.blit(self.new_game_text, (self.screen.get_width() - 156, 54))
+
+        # QUIT board
+        pygame.draw.rect(self.screen, colors['BLACK'], (self.screen.get_width() - 206, 90, 186, 36))
+        self.new_game_text = self.text_set.render("QUIT", True, colors["WHITE"])
+        self.screen.blit(self.new_game_text, (self.screen.get_width() - 150, 96))
+
+        # Get mouse position
+        self.mouse_x, self.mouse_y = pygame.mouse.get_pos()
+
+        # NEW interactive button
+        if (self.screen.get_width() - 206 <= self.mouse_x <= self.screen.get_width() - 20) and (6 <= self.mouse_y <= 42):
+            pygame.draw.rect(self.screen, colors['WHITE'], (self.screen.get_width() - 206, 6, 186, 36))
+            self.new_game_text = self.text_set.render("NEW", True, colors["RED"])
+            self.screen.blit(self.new_game_text, (self.screen.get_width()- 200, 12))
+            if pygame.mouse.get_pressed()[0] == 1:
+                self.player.renew_point()
+                self.player.resurrect()
+                self.goals = self.setup_goals()
+                self.start()
+
+        # NEXT interactive button
+        elif (self.screen.get_width() - 206 <= self.mouse_x <= self.screen.get_width() - 20) and (48 <= self.mouse_y <= 84):
+            pygame.draw.rect(self.screen, colors['WHITE'], (self.screen.get_width() - 206, 48, 186, 36))
+            self.new_game_text = self.text_set.render("NEXT", True, colors["RED"])
+            self.screen.blit(self.new_game_text, (self.screen.get_width()- 200, 54))
+            if pygame.mouse.get_pressed()[0] == 1:
+                self.player.resurrect()
+                self.goals = self.setup_goals()
+                self.start()
+
+        # QUIT interactive button
+        elif (self.screen.get_width() - 206 <= self.mouse_x <= self.screen.get_width() - 20) and (90 <= self.mouse_y <= 126):
+            pygame.draw.rect(self.screen, colors['WHITE'], (self.screen.get_width() - 206, 90, 186, 36))
+            self.new_game_text = self.text_set.render("QUIT", True, colors["RED"])
+            self.screen.blit(self.new_game_text, (self.screen.get_width()- 200, 96))
+            if pygame.mouse.get_pressed()[0] == 1:
+                pygame.quit()
+                quit()
 
     def display_orbits(self):
         for radius in self.radius_list:
