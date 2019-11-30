@@ -67,7 +67,7 @@ class Game:
 
             self.check_interactions()
 
-            self.screen_set()      # make sure to be the first thing to display
+            self.display_wallpaper()      # make sure to be the first thing to display
             self.display_orbits()  # draw the orbits over the screens
             self.display_characters()
             pygame.display.flip()
