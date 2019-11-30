@@ -5,7 +5,7 @@ class Player(PolarPlaceable):
     """Class to represent the object that the player controls. Collects points during game."""
     def __init__(self, radius_list, radius_index, angle):
         """Create a player object with a HOTPINK color."""
-        super().__init__(radius_list, radius_index, angle, "HOTPINK")
+        super().__init__(radius_list, radius_index, angle, "YELLOW")
         self._points_collected = 0
         self._moving_left = True
         self._alive = True
@@ -21,9 +21,13 @@ class Player(PolarPlaceable):
 
     def die(self):
         self._alive = False
+        self._points_collected -= 1
 
     def resurrect(self):
         self._alive = True
+
+    def renew_point(self):
+        self._points_collected = 0
 
     def is_moving_left(self):
         return self._moving_left
