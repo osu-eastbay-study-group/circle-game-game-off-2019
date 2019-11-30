@@ -70,7 +70,8 @@ class Game:
 
             self.move_characters()
 
-            self.check_player_interactions()
+            if self.player.is_alive():
+                self.check_player_interactions()
 
             self.display_wallpaper()      # make sure to be the first thing to display
             self.display_score(self.text_set)
