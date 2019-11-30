@@ -27,20 +27,21 @@ class PolarUtilities:
         return (offset_value - (math.floor(offset_value / width) * width)) + start
 
     @staticmethod
-    def get_distance(r_1, theta_1, r_2, theta_2):
+    def get_distance(radius_1, angle_1, radius_2, angle_2):
         """
         Compute the distance between two points.
         Parameters
         ----------
-        r_1 :
-        theta_1 :
-        r_2 :
-        theta_2 :
+        radius_1 : float
+        angle_1 : float
+        radius_2 : float
+        angle_2 : float
 
         Returns
         -------
-
+        float
+            Distance between the two points.
         """
-        return math.sqrt(r_1 ** 2 + r_2 ** 2
-                         - (2 * r_1 * r_2 * math.cos((theta_1 - theta_2)
-                                                     * math.pi / 180)))
+        return math.sqrt(radius_1 ** 2 + radius_2 ** 2
+                         - (2 * radius_1 * radius_2 * math.cos((angle_1 - angle_2)
+                                                               * math.pi / 180)))

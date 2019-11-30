@@ -52,12 +52,12 @@ class Game:
         radius_index = len(self.radius_list) - 1
 
         # Place on opposite side of killer as not to get killed immediately when spawned.
-        theta = self.killers[radius_index].get_theta() - 180
+        initial_angle = self.killers[radius_index].get_angle() - 180
 
         # Have player and killer in initial orbit move the same direction.
         self.killers[radius_index].move_left()
 
-        return circlegame.characters.player.Player(self.radius_list, radius_index, theta)
+        return circlegame.characters.player.Player(self.radius_list, radius_index, initial_angle)
 
     def start(self):
         while not self.game_over:
@@ -92,14 +92,14 @@ class Game:
     def move_characters(self):
         for killer in self.killers:
             if killer.is_moving_left():
-                killer.change_theta(5)
+                killer.change_angle(5)
             else:
-                killer.change_theta(-5)
+                killer.change_angle(-5)
         if self.player.is_alive():
             if self.player.is_moving_left():
-                self.player.change_theta(5)
+                self.player.change_angle(5)
             else:
-                self.player.change_theta(-5)
+                self.player.change_angle(-5)
 
     def check_interactions(self):
         for i, goal in enumerate(self.goals):
@@ -111,13 +111,13 @@ class Game:
             if killer.is_colliding_with(self.player):
                 self.player.die()
 
-    def screen_set(self):
+    def display_wallpaper(self):
         self.screen.blit(self.wallpaper_img, self.wallpaper_img.get_rect())
 
     def display_orbits(self):
-        for r in self.radius_list:
-            for theta in range(360):
-                pygame.draw.circle(self.screen, colors['WHITE'], self.converter.polar_to_pixel((r, theta)), 1)
+        for radius in self.radius_list:
+            for angle in range(360):
+                pygame.draw.circle(self.screen, colors['WHITE'], self.converter.polar_to_pixel((radius, angle)), 1)
 
     def display_characters(self):
         characters_to_move = self.goals + self.killers
@@ -126,7 +126,7 @@ class Game:
             characters_to_move.append(self.player)
 
         for character in characters_to_move:
-            radius_index, theta, color_key = character.get_draw_data()
-            r = self.radius_list[radius_index]
+            radius_index, angle, color_key = character.get_draw_data()
+            radius = self.radius_list[radius_index]
             pygame.draw.circle(self.screen, colors[color_key],
-                               self.converter.polar_to_pixel((r, theta)), 10)
+                               self.converter.polar_to_pixel((radius, angle)), 10)

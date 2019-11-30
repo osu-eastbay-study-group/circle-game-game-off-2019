@@ -4,8 +4,8 @@ import random
 
 class Killer(PolarPlaceable):
     """Represents the characters that can attack the player."""
-    def __init__(self, radius_list, radius_level, theta):
-        super().__init__(radius_list, radius_level, theta, "RED")
+    def __init__(self, radius_list, radius_index, angle):
+        super().__init__(radius_list, radius_index, angle, "RED")
         self._moving_left = random.choice((True, False))
 
     def is_moving_left(self):
