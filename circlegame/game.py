@@ -115,6 +115,10 @@ class Game:
                 self.player.pick_up_goal(goal)
                 del self.goals[i]
 
+        # spawn new goals if none left
+        if not self.goals:
+            self.goals = self.setup_goals()
+
         for killer in self.killers:
             if killer.is_colliding_with(self.player):
                 self.player.die()
