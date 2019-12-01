@@ -21,7 +21,8 @@ class Player(PolarPlaceable):
 
     def die(self):
         self._alive = False
-        self._points_collected -= 1
+        if self._points_collected > 0:
+            self._points_collected -= 1
 
     def resurrect(self):
         self._alive = True
