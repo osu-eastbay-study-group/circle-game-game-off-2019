@@ -23,14 +23,14 @@ chmod u+x main.py  # Only needs to be executed once
 ./main.py          # Run everytime starting game
 ```
 ### Controls
-|-------|-----------------------|
-| key   | description           |
-|-------|-----------------------|
-| UP    | jump to outer orbits  |
-| DOWN  | jump to inner orbits  |
-| LEFT  | move counterclockwise |
-| RIGHT | move clockwise        |
-|-------|-----------------------|
+
+| KEY | DESCRIPTION           |
+|-----|-----------------------|
+| ↑   | jump to outer orbits  |
+| ↓   | jump to inner orbits  |
+| ←   | move counterclockwise |
+| →   | move clockwise        |
+
 
 ## Screenshot or Video
 - screenshot
